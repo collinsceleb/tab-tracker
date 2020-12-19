@@ -7,18 +7,35 @@
                         <v-row>
                             <v-col cols="12" sm="6" md="12">
                                 <v-text-field 
-                                    type="email" placeholder="Email" name="email" v-model="email">
+                                    type="email" 
+                                    placeholder="Email"
+                                    label="Email" 
+                                    hint="Email"
+                                    name="email" 
+                                    v-model="email" 
+                                    outlined>
                                 </v-text-field>
                             </v-col>
                             <v-col cols="12" sm="6" md="12">
                                 <v-text-field 
-                                    type="password" placeholder="Password" name="password" v-model="password">
+                                    type="password" 
+                                    placeholder="Password" 
+                                    label="Password"
+                                    hint="Password"
+                                    name="password" 
+                                    v-model="password" 
+                                    outlined>
                                 </v-text-field>
                             </v-col>
                             <div class="error" v-html="error" />
                         </v-row>
                         <v-col cols="12" sm="6" md="12" align-center>
-                            <v-btn class="cyan" type="submit" align-center dark>Register</v-btn>
+                            <v-btn 
+                                class="cyan" 
+                                type="submit" 
+                                align-center dark>
+                                Register
+                            </v-btn>
                         </v-col>
                     </v-container>
                 </v-form>
