@@ -1,10 +1,7 @@
 <template>
     <v-container column>
         <v-flex xs6 offset-xs3>
-            <div class="white elevation-2">
-                <v-toolbar flat dense class="cyan" dark>
-                    <v-toolbar-title>Sign In</v-toolbar-title>
-                </v-toolbar>
+            <panel title="Sign In">
                 <v-form @submit.prevent="login">            
                     <v-container>
                         <v-row>
@@ -25,7 +22,7 @@
                         </v-col>
                     </v-container>
                 </v-form>
-            </div>
+            </panel>
         </v-flex>
     </v-container>
     
@@ -33,8 +30,11 @@
 
 <script>
 import AuthenticationService from '@/services/AuthenticationService.js'
+import Panel from '../songs/Panel.vue'
 export default {
-    
+    components: {
+        Panel
+    },
     data() {
         return {
             email: '',
@@ -56,6 +56,9 @@ export default {
             } catch (error) {
                 this.error = error.response.data.error
             }
+            this.$router.push({
+                name: 'Home'
+            })
         }
 
         // login() {

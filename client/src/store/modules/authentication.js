@@ -1,6 +1,6 @@
 // import Vue from 'vue'
 // import Vuex from 'vuex'
-// import axios from 'axios'
+import axios from 'axios'
 // // import AuthenticationService from '@/services/AuthenticationService.js'
 
 // Vue.use(Vuex)
@@ -9,21 +9,25 @@
 export default {
     strict: true,
     state: {
-        token: null,
+        token: "",
         user: null,
         // isUserLoggedIn: false
     },
     mutations: {
         setToken(state, token) {
             state.token = token
-        //     if (token) {
-        //         state.isUserLoggedIn = true
-        //     } else {
-        //         state.isUserLoggedIn = false
-        //     }
+            // if (token) {
+            //     state.isUserLoggedIn = true
+            // } else {
+            //     state.isUserLoggedIn = false
+            // }
         },
         setUser(state, user) {
             state.user = user
+        },
+        logout(state) {
+            state.token = '',
+            state.user = ''
         }
     },
     actions: {
@@ -32,10 +36,21 @@ export default {
         },
         setUser({commit}, user) {
             commit('setUser', user)
-        }
+        },
+        logout({commit, state}){
+            return new Promise((resolve) => {
+                state.token = null
+                state.user = null
+                commit('logout')
+            //   localStorage.removeItem('token')
+              delete axios.defaults.headers.common['Authorization']
+              resolve()
+            })
+          }
     },
     getters: {
-        isUserLoggedIn: state => !!state.token
+        isUserLoggedIn: state => !state.token, 
+        isUserLoggedOut: state => state.token
     }
 }
 
