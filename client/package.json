@@ -15,8 +15,10 @@
     "jsonwebtoken": "^8.5.1",
     "vue": "^2.6.11",
     "vue-router": "^3.4.9",
+    "vue-youtube-embed": "^2.2.2",
     "vuetify": "^2.2.11",
-    "vuex": "3.4.0"
+    "vuex": "3.4.0",
+    "vuex-router-sync": "^5.0.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

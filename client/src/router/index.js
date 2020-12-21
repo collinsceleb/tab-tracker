@@ -1,11 +1,12 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Register from '../components/register/Register'
-import Hello from '../components/HelloWorld'
-import LogIn from '../components/signin/SignIn'
+import Register from '@/components/register/Register'
+import Hello from '@/components/HelloWorld'
+import LogIn from '@/components/signin/SignIn'
 import Songs from '@/components/songs/Songs'
 import CreateSong from '@/components/songs/CreateSong'
-import ViewSong from '@/components/songs/ViewSong'
+import ViewSong from '@/components/songs/viewsong/ViewSong.vue'
+import EditSong from '@/components/songs/EditSong'
 
 Vue.use(Router);
 
@@ -38,9 +39,19 @@ export default new Router({
             component: CreateSong
         },
         {
-            path: '/song/:songId',
+            path: '/songs/:songId',
             name: 'View-Song',
-            component: ViewSong
+            component: ViewSong,
+            props: true,
+            beforeEnter(to, from, next) {
+                const isValidId = Number.isInteger(Number(to.params.songId));
+                next(isValidId);
+            }
+        },
+        {
+            path: '/songs/:songId/edit',
+            name: 'Edit-Song',
+            component: EditSong
         }
     ]
 });
