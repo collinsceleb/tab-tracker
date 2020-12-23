@@ -8,7 +8,7 @@
         <v-toolbar-title class="mr-4">TabTracker</v-toolbar-title>
     </router-link>
     <v-toolbar-items class="nav-link">
-        <v-btn class="cyan" text dark @click="navigateTo({name: 'Songs'})">
+        <v-btn class="cyan" text dark :to="{name: 'Songs'}">
             Browse
         </v-btn>
     </v-toolbar-items>
@@ -17,10 +17,10 @@
         
     
     <v-toolbar-items class="nav-link">
-        <v-btn v-if="isLoggedIn" class="cyan" text dark @click="navigateTo({name: 'LogIn'})">
+        <v-btn v-if="isLoggedIn" class="cyan" text dark :to="{name: 'LogIn'}">
             Sign in
         </v-btn>
-        <v-btn v-if="isLoggedIn" class="cyan" text dark @click="navigateTo({name: 'Register'})">
+        <v-btn v-if="isLoggedIn" class="cyan" text dark :to="{name: 'Register'}">
             Sign Up
         </v-btn>
 
@@ -41,9 +41,6 @@ export default {
         }
     },
     methods: {
-        navigateTo(route) {
-            this.$router.push(route)
-        },
         // logout() {
         //     this.$store.dispatch('setToken', null)
         //     this.$store.dispatch('setUser', null)
