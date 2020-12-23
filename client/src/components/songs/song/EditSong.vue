@@ -120,20 +120,15 @@
               {{error}}
           </div>
           <v-col cols="12" sm="6" md="12" align-center>
-              <v-btn class="cyan" type="submit" align-center dark @click="create">Create Song</v-btn>
+              <v-btn class="cyan" type="submit" align-center dark @click="save">Save Song</v-btn>
           </v-col>
       </v-flex>
   </v-layout>
 </template>
 
 <script>
-
-import Panel from './Panel.vue'
 import SongService from '@/services/SongService'
 export default {
-    components: {
-        Panel
-    },
     data() {
         return {
             song: {
@@ -151,7 +146,7 @@ export default {
         }
     },
     methods: {
-        async create() {
+        async save() {
             this.error = null
             const areAllFieldFilled = Object
                 .keys(this.song)
@@ -160,17 +155,30 @@ export default {
                     this.error = 'Please fill in all the required fields'
                     return
                 }
+                
+            const songId = this.$store.state.route.params.songId
             try {
-                await SongService.post(this.song)
+
+                await SongService.put(this.song)
                 this.$router.push({
-                    name: 'Songs'
+                    name: 'View-Song',
+                    params: {
+                        songId: songId
+                    }
                 })
             } catch (err) {
                 console.log(err)                
             }
         }
+    },
+    async mounted() {
+        try {
+            const songId = this.$store.state.route.params.songId
+            this.song = (await SongService.show(songId)).data
+        } catch (error) {
+            console.log(error)
+        }
     }
-
 }
 </script>
 

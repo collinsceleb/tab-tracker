@@ -33,7 +33,6 @@ export default {
     // console.log(songId)
   },
   components: {
-    // Panel,
     SongMetadata,
     YouTube,
     Lyrics,

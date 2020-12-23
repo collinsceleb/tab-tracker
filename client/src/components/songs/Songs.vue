@@ -1,64 +1,19 @@
 <template>
     <v-container column>
         <v-flex xs6 offset-xs3>
-            <panel title="Songs">
-                <v-btn 
-                    class="cyan accent-2"
-                    slot="action"
-                    @click="navigateTo({name: 'Song-Create'})"
-                    fab
-                    light
-                    medium
-                    absolute
-                    right
-                    middle>
-                    <span class="material-icons">
-                        <v-icon>
-                            add
-                        </v-icon>
-                    </span>
-                </v-btn>
-                <div 
-                    v-for="song in songs" 
-                    :key="song.id" 
-                    class="song">
-                    <v-layout>
-                        <v-flex xs6>
-                            <div class="song-title">
-                                {{song.title}}
-                            </div>
-                             <div class="song-artist">
-                                {{song.artist}}
-                            </div>
-                             <div class="song-genre">
-                                {{song.genre}}
-                            </div>
-                            <v-btn 
-                                class="cyan" 
-                                type="submit"
-                                 dark 
-                                 @click="navigateTo({name: 'View-Song', params: {songId: song.id}})">
-                                 View
-                            </v-btn>
-                        </v-flex>
-                        <v-flex xs6>
-                            <img class="album-image" :src="song.albumImageUrl">
-                        </v-flex>
-                    </v-layout>
-                </div>
-            </panel>
+            <songs-search-panel />
+            <songs-panel class="mt-2"/>
         </v-flex>
     </v-container>
 </template>
 
 <script>
-// import Panel from './Panel'
-import Panel from './Panel.vue'
 import SongService from '@/services/SongService'
+import SongsPanel from './SongsPanel.vue'
+import SongsSearchPanel from './SongsSearchPanel.vue'
 export default {
-  components: {
-      Panel
-  },
+  
+  components: { SongsPanel, SongsSearchPanel },
   data() {
       return {
           songs: null

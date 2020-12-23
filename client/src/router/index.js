@@ -4,9 +4,9 @@ import Register from '@/components/register/Register'
 import Hello from '@/components/HelloWorld'
 import LogIn from '@/components/signin/SignIn'
 import Songs from '@/components/songs/Songs'
-import CreateSong from '@/components/songs/CreateSong'
+import CreateSong from '@/components/songs/song/CreateSong'
 import ViewSong from '@/components/songs/viewsong/ViewSong.vue'
-import EditSong from '@/components/songs/EditSong'
+import EditSong from '@/components/songs/song/EditSong'
 
 Vue.use(Router);
 
