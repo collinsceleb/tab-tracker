@@ -4,7 +4,7 @@
       color="cyan"
       dark
     >
-    <router-link :to="{name: 'Home'}" class="nav-link">
+    <router-link :to="{name: 'Songs'}" class="nav-link">
         <v-toolbar-title class="mr-4">TabTracker</v-toolbar-title>
     </router-link>
     <v-toolbar-items class="nav-link">
@@ -17,42 +17,47 @@
         
     
     <v-toolbar-items class="nav-link">
-        <v-btn v-if="isLoggedIn" class="cyan" text dark :to="{name: 'LogIn'}">
+        <v-btn v-if="!isUserLoggedIn" class="cyan" text dark :to="{name: 'LogIn'}">
             Sign in
         </v-btn>
-        <v-btn v-if="isLoggedIn" class="cyan" text dark :to="{name: 'Register'}">
+        <v-btn v-if="!isUserLoggedIn" class="cyan" text dark :to="{name: 'Register'}">
             Sign Up
         </v-btn>
 
-        <v-btn class="cyan" v-if="isLoggedOut" text dark @click="logout">
+        <v-btn class="cyan" v-if="!isUserLoggedOut" text dark @click="logout">
             Logout
         </v-btn>
     </v-toolbar-items>
 </v-app-bar>
 </template>
 <script>
+import {mapGetters} from 'vuex'
 export default {
     computed: {
-        isLoggedIn() {
-            return this.$store.getters.isUserLoggedIn
-        },
-        isLoggedOut() {
-            return this.$store.getters.isUserLoggedOut
-        }
+        // isLoggedIn() {
+        //     return this.$store.getters.isUserLoggedIn
+        // },
+        // isLoggedOut() {
+        //     return this.$store.getters.isUserLoggedOut
+        // }
+        ...mapGetters([
+            'isUserLoggedIn',
+            'isUserLoggedOut'
+        ])
     },
     methods: {
         // logout() {
         //     this.$store.dispatch('setToken', null)
         //     this.$store.dispatch('setUser', null)
         //     this.$router.push({
-        //         name: 'Home'
+        //         name: 'Songs'
         //     })
         // },
         logout() {
             this.$store.dispatch('logout')
             .then(() => {
                 this.$router.push({
-                    name: 'Home'
+                    name: 'Songs'
                 })
             })
         }

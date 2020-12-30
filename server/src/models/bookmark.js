@@ -4,7 +4,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Song extends Model {
+  class Bookmark extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -14,23 +14,21 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  Song.init({
-    title: DataTypes.STRING,
-    artist: DataTypes.STRING,
-    genre: DataTypes.STRING,
-    album: DataTypes.STRING,
-    albumImageUrl: DataTypes.STRING,
-    youtubeId: DataTypes.STRING,
-    lyrics: DataTypes.TEXT,
-    tab: DataTypes.TEXT
+  Bookmark.init({
+    
   }, {
     sequelize,
-    modelName: 'Song',
+    modelName: 'Bookmark',
   });
-
-  Song.associate = function(models) {
-    Song.hasOne(models.Bookmark)
+  Bookmark.associate = function(models) {
+    Bookmark.belongsTo(models.User, {
+      foreignKey: 'UserId',
+    })
+  },
+  Bookmark.associate = function(models) {
+    Bookmark.belongsTo(models.Song, {
+      foreignKey: 'SongId'
+    })
   }
-
-  return Song;
+  return Bookmark;
 };

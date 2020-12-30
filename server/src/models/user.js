@@ -2,6 +2,7 @@
 'use strict';
 // const Promise = require('bluebird')
 const bcrypt = require('bcrypt')
+
 const {
   Model
 } = require('sequelize');
@@ -42,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
   User.init({
     email: {
       type: DataTypes.STRING,
-      unique: true
+      unique: true,
     },
     password: {
       type: DataTypes.STRING
@@ -56,11 +57,14 @@ module.exports = (sequelize, DataTypes) => {
       beforeSave: hashPassword
     }
   });
-
+  User.associate = function(models) {
+    User.hasOne(models.Bookmark)
+  }
   User.prototype.comparePassword = function (password) {
     return bcrypt.compare(password, this.password).then(result =>{
       result == true
     })
   }
+
   return User;
 };

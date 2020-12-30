@@ -27,7 +27,7 @@
                                     outlined>
                                 </v-text-field>
                             </v-col>
-                            <div class="error" v-html="error" />
+                            <div class="danger-alert" v-html="error" />
                         </v-row>
                         <v-col cols="12" sm="6" md="12" align-center>
                             <v-btn 
@@ -63,14 +63,24 @@ export default {
                 email: this.email,
                 password: this.password
             })
+            if (this.email === '') {
+                return 'Enter a valid email'
+            } 
+            if(this.password === '') {
+                return 'Password is required'
+            } 
+            // if(this.email == '' && this.password == '') {
+            //     return 'Empty entry'
+            // }
+                this.$store.dispatch('setToken', resp.data.token)
+                this.$store.dispatch('setUser', resp.data.user)
             // console.log(this.email)
-            this.$store.dispatch('setToken', resp.data.token)
-            this.$store.dispatch('setUser', resp.data.user)
+            
             } catch (error) {
                 this.error = error.response.data.error
             }
             this.$router.push({
-                name: 'Home'
+                name: 'Songs'
             })
         }
 
@@ -85,7 +95,4 @@ export default {
 </script>
 
 <style scoped>
-.error{
-    color: red;
-}
 </style>

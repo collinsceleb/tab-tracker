@@ -16,12 +16,32 @@
                 dark
                 :to="{
                     name: 'Edit-Song', 
-                    params: {
-                        songId: song.id
+                    params() {
+                        return {
+                            songId: song.id
+                        }
                     }
                 }">
                   Edit Song
               </v-btn>
+              <v-btn
+                v-if="isUserLoggedIn && !bookmark"
+                class="cyan ml-1 mt-1 mb-1" 
+                dark
+                @click="setAsBookmark"
+                >
+                 Set As Bookmark
+              </v-btn>
+
+              <v-btn
+                v-if="isUserLoggedIn && bookmark"
+                class="cyan mt-1 ml-1" 
+                dark
+                @click="unsetAsBookmark"
+                >
+                 Unset As Bookmark
+              </v-btn>
+
           </v-flex>
           <v-flex xs6>
               <img class="album-image" :src="song.albumImageUrl">
@@ -33,12 +53,53 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
+import BookmarkService from '@/services/BookmarkService'
 export default {
     props: [
         'song'
-    ], 
+    ],
+    data() {
+        return {
+            bookmark: null
+        }
+    },
+    computed: {
+        ...mapGetters([
+            'isUserLoggedIn'
+        ])
+    },
+    async mounted() {
+        try {
+            this.bookmark = (await BookmarkService.index({
+            songId: this.song.id,
+            userId: this.$store.state.authenticationModule.user.id
+        })).data
+        } catch (error) {
+            console.log(error)
+        }
+    },
     methods: {
-        
+        async setAsBookmark() {
+            try {
+                this.bookmark = (await BookmarkService.post({
+                        SongId: this.song.id,
+                        UserId: this.$store.state.authenticationModule.user.id
+                })).data
+            } catch (error) {
+                console.log(error)
+            }
+            // console.log('bookmark')
+        },
+        async unsetAsBookmark() {
+            try {
+                await BookmarkService.delete(this.bookmark.id)
+                
+                this.bookmark = null
+            } catch (error) {
+                console.log(error)
+            }
+        }
     }
 }
 </script>

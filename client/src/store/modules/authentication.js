@@ -10,7 +10,7 @@ export default {
     strict: true,
     state: {
         token: "",
-        user: null,
+        user: "",
         // isUserLoggedIn: false
     },
     mutations: {
@@ -49,8 +49,8 @@ export default {
           }
     },
     getters: {
-        isUserLoggedIn: state => !state.token, 
-        isUserLoggedOut: state => state.token
+        isUserLoggedIn: state => !!state.token, 
+        isUserLoggedOut: state => !state.token
     }
 }
 

@@ -27,7 +27,7 @@
                                     outlined>
                                 </v-text-field>
                             </v-col>
-                            <div class="error" v-html="error" />
+                            <div class="danger-alert" v-html="error" />
                         </v-row>
                         <v-col cols="12" sm="6" md="12" align-center>
                             <v-btn 
@@ -69,6 +69,9 @@ export default {
             })
             this.$store.dispatch('setToken', response.data.token)
             this.$store.dispatch('setUser', response.data.user)
+            this.$router.push({
+                name: 'LogIn'
+            })
             } catch (error) {
                 this.error = error.response.data.error
             }
